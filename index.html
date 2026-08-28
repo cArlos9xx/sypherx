@@ -7,16 +7,17 @@
 <title>Sypher X — Identidade da Marca</title>
 <style>
   :root{
-    /* Minimalista futurista — violeta/roxo */
-    --bg:#F6F4FB;            /* fundo lavanda claro */
-    --bg-2:#FFFFFF;
-    --ink:#1B1035;           /* texto principal roxo quase preto */
-    --ink-2:#6E6391;
-    --violet:#7C3AED;        /* roxo primario */
-    --violet-2:#8B5CF6;      /* roxo claro */
-    --violet-3:#C4B5FD;      /* lavanda */
-    --magenta:#D946EF;       /* magenta accent */
-    --line:#E7E2F3;          /* linhas suaves */
+    /* Dark futurista — violeta/roxo */
+    --bg:#0B0618;            /* fundo escuro roxo */
+    --bg-2:#150D2B;          /* superficie */
+    --bg-3:#1D1236;          /* superficie elevada */
+    --ink:#F3EEFF;           /* texto principal claro */
+    --ink-2:#A99CCB;         /* texto secundario */
+    --violet:#8B5CF6;        /* roxo primario */
+    --violet-2:#A78BFA;      /* roxo claro */
+    --violet-3:#7C3AED;      /* lavanda */
+    --magenta:#E879F9;       /* magenta accent */
+    --line:#2A1E4A;          /* linhas suaves escuras */
     --grad:linear-gradient(120deg,#7C3AED,#D946EF);
     --serif:Georgia,'Times New Roman',serif;
     --sans:'Segoe UI',-apple-system,Helvetica,Arial,sans-serif;
@@ -31,10 +32,10 @@
   .bg-art{
     position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
   }
-  .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
-  .orb.a{width:520px;height:520px;background:#E9DFFF;top:-160px;right:-120px}
-  .orb.b{width:440px;height:440px;background:#F3E5FF;bottom:-140px;left:-120px}
-  .orb.c{width:300px;height:300px;background:#EFE6FF;top:40%;left:55%;opacity:.35}
+  .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+  .orb.a{width:520px;height:520px;background:#3B1E6E;top:-160px;right:-120px}
+  .orb.b{width:440px;height:440px;background:#2C1454;bottom:-140px;left:-120px}
+  .orb.c{width:300px;height:300px;background:#4C1D8F;top:40%;left:55%;opacity:.35}
 
   /* linha horizontal sutil */
   .hairline{height:1px;background:var(--line);width:100%}
@@ -44,7 +45,7 @@
     position:fixed;top:0;left:0;right:0;z-index:40;
     display:flex;align-items:center;justify-content:space-between;
     padding:22px 48px;
-    background:rgba(246,244,251,0.7);backdrop-filter:blur(18px);
+    background:rgba(11,6,24,0.7);backdrop-filter:blur(18px);
     border-bottom:1px solid var(--line);
   }
   .nav-brand{font-size:1.1rem;font-weight:700;letter-spacing:1px;color:var(--ink)}
@@ -110,7 +111,7 @@
   .cta .primary{background:var(--grad);color:#fff;box-shadow:0 8px 30px rgba(124,58,237,0.25)}
   .cta .primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(124,58,237,0.35)}
   .cta .ghost{border:1.5px solid var(--violet-3);color:var(--violet)}
-  .cta .ghost:hover{background:#fff;transform:translateY(-2px)}
+  .cta .ghost:hover{background:var(--bg-3);transform:translateY(-2px)}
 
   .scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:0.72rem;letter-spacing:3px;color:var(--violet-3);animation:pulse 2.5s infinite}
   @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
@@ -226,7 +227,7 @@
 
   footer{position:relative;z-index:2;text-align:center;padding:40px;border-top:1px solid var(--line);color:var(--ink-2);font-size:0.8rem;font-family:var(--mono)}
 
-  .audio-btn{position:fixed;bottom:24px;right:24px;z-index:60;display:flex;align-items:center;gap:10px;padding:13px 22px 13px 18px;border-radius:60px;border:1px solid var(--violet-3);background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);color:var(--ink);font-size:0.9rem;font-weight:600;cursor:pointer;font-family:var(--sans);box-shadow:0 8px 30px rgba(30,16,70,0.12);transition:transform .2s,box-shadow .2s}
+  .audio-btn{position:fixed;bottom:24px;right:24px;z-index:60;display:flex;align-items:center;gap:10px;padding:13px 22px 13px 18px;border-radius:60px;border:1px solid var(--violet-3);background:rgba(21,13,43,0.92);backdrop-filter:blur(10px);color:var(--ink);font-size:0.9rem;font-weight:600;cursor:pointer;font-family:var(--sans);box-shadow:0 8px 30px rgba(0,0,0,0.5);transition:transform .2s,box-shadow .2s}
   .audio-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(124,58,237,0.2)}
   .audio-btn .snd{width:30px;height:30px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:#fff}
   .audio-btn .bars{display:flex;align-items:flex-end;gap:3px;height:16px}
