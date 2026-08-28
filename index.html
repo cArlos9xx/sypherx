@@ -100,6 +100,19 @@
     display:inline-block;animation:float 6s ease-in-out infinite;
   }
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  /* ======== LETRA S QUE SE DESENHA (estilo syphex) ======== */
+  .hero-word{display:flex;align-items:center;justify-content:center;gap:2px}
+  .s-draw{width:clamp(2.6rem,11vw,7rem);height:auto;display:block;overflow:visible;filter:drop-shadow(0 0 24px rgba(139,92,246,0.55))}
+  .s-draw path{fill:none;stroke:url(#sgrad);stroke-width:14;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1200;stroke-dashoffset:1200}
+  .hero.draw .s-draw path{animation:draw 2.2s cubic-bezier(.65,0,.35,1) forwards}
+  .hero.draw .s-draw path.s-sheen{animation:draw 2.2s cubic-bezier(.65,0,.35,1) forwards,dash-glow 3s ease-in-out 2.2s infinite}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes dash-glow{
+    0%,100%{opacity:1;stroke:#E879F9}
+    50%{opacity:.85;stroke:#8B5CF6}
+  }
+
   .hero .slogan{
     margin-top:34px;font-size:clamp(1.1rem,2.6vw,1.5rem);color:var(--ink-2);
     max-width:640px;font-weight:300;letter-spacing:0.3px;
@@ -273,13 +286,27 @@
 </button>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero draw">
   <div class="hero-wrap">
     <div class="ring"></div>
     <div class="ring"></div>
     <div class="ring"></div>
     <div class="eyebrow">Inteligência · Segurança · Futuro</div>
-    <h1>Sypher<span class="x">X</span></h1>
+    <h1 class="hero-word">
+      <svg class="s-draw" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="S">
+        <defs>
+          <linearGradient id="sgrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#7C3AED"/>
+            <stop offset="1" stop-color="#E879F9"/>
+          </linearGradient>
+        </defs>
+        <g>
+          <path class="s-sheen" d="M74 30 C72 14 40 8 26 16 C14 23 10 32 14 38 C20 46 40 42 54 50 C66 56 74 64 68 74 C62 84 40 90 28 84 C18 79 14 70 18 62"/>
+          <path d="M74 30 C72 14 40 8 26 16 C14 23 10 32 14 38 C20 46 40 42 54 50 C66 56 74 64 68 74 C62 84 40 90 28 84 C18 79 14 70 18 62"/>
+        </g>
+      </svg>
+      <span>ypher</span><span class="x">X</span>
+    </h1>
     <p class="slogan">O <strong>código</strong> que decifra o <strong>futuro</strong>.<br>IA e segurança digital em estado puro.</p>
     <div class="sub">SOLUÇÕES TECNOLÓGICAS · INTELIGÊNCIA ARTIFICIAL</div>
     <div class="cta">
