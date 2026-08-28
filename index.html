@@ -103,20 +103,14 @@
 
   /* ======== X QUE SE DESENHA (estilo syphex) ======== */
   .hero-word{display:inline-flex;align-items:baseline;gap:2px;justify-content:center}
-  .x-draw{width:clamp(2.6rem,11vw,7rem);height:auto;display:block;overflow:visible;filter:drop-shadow(0 0 26px rgba(217,70,239,0.7));transform:translateY(0.12em)}
-  .x-draw path{fill:none;stroke:url(#xgrad);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400}
-  .hero.draw .x-draw path{animation:draw 1.9s cubic-bezier(.6,0,.2,1) .3s forwards}
-  .x-draw path.join{animation:draw 1.9s cubic-bezier(.6,0,.2,1) .7s forwards,dash-glow 3.5s ease-in-out 2.4s infinite}
+  .x-draw{width:clamp(2.6rem,11vw,7rem);height:auto;display:block;overflow:visible;filter:drop-shadow(0 0 22px rgba(139,92,246,0.6));transform:translateY(0.12em)}
+  .x-draw path{fill:none;stroke:url(#xgrad);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900}
+  .hero.draw .x-draw path{animation:draw 1.6s cubic-bezier(.65,0,.35,1) forwards}
+  .x-draw path.join{animation:draw 1.6s cubic-bezier(.65,0,.35,1) .4s forwards,dash-glow 3s ease-in-out 2s infinite}
   @keyframes draw{to{stroke-dashoffset:0}}
   @keyframes dash-glow{
-    0%,100%{opacity:1;stroke:#E879F9;filter:drop-shadow(0 0 10px #E879F9)}
-    50%{opacity:.75;stroke:#8B5CF6;filter:drop-shadow(0 0 26px #8B5CF6)}
-  }
-  .x-draw .blast{fill:none;stroke:#F3EEFF;stroke-width:3;stroke-linecap:round;opacity:0;animation:blast .7s ease-out 1.9s forwards}
-  @keyframes blast{
-    0%{opacity:0;transform:scale(.4);transform-origin:center}
-    60%{opacity:.9}
-    100%{opacity:0;transform:scale(1.6)}
+    0%,100%{opacity:1;stroke:#E879F9}
+    50%{opacity:.85;stroke:#8B5CF6}
   }
 
   .hero .slogan{
@@ -305,9 +299,8 @@
             <stop offset="1" stop-color="#E879F9"/>
           </linearGradient>
         </defs>
-        <path d="M24 22 L76 52 L24 82 C36 66 48 62 62 66 L76 78"/>
+        <path d="M24 22 L76 78"/>
         <path class="join" d="M76 22 L24 78"/>
-        <circle class="blast" cx="50" cy="50" r="30"/>
       </svg>
     </h1>
     <p class="slogan">O <strong>código</strong> que decifra o <strong>futuro</strong>.<br>IA e segurança digital em estado puro.</p>
