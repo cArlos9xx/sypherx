@@ -118,20 +118,23 @@
   }
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-  /* ======== X QUE SE DESENHA + IMPACTO (fitas largas) ======== */
+  /* ======== X estilo Singularity (glifo itálico + gradiente) ======== */
   .hero-word{display:inline-flex;align-items:center;gap:2px;justify-content:center}
-  .x-draw{width:clamp(3.2rem,14vw,8.6rem);height:auto;display:block;overflow:visible;filter:drop-shadow(0 0 10px rgba(217,70,239,.9),0 0 30px rgba(139,92,246,.75));animation:xglow 3s ease-in-out 1.6s infinite}
-  .x-draw path{fill:url(#xgrad);fill-opacity:.25;stroke:#F3EEFF;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900;opacity:0}
-  .hero.draw .x-draw path{animation:xdraw 1.8s cubic-bezier(.65,0,.35,1) .2s forwards}
-  .x-draw path.arm2{animation:xdraw 1.8s cubic-bezier(.65,0,.35,1) .6s forwards}
-  @keyframes xdraw{
-    0%{opacity:0;stroke-dashoffset:900}
-    55%{opacity:1}
-    100%{opacity:1;stroke-dashoffset:0}
+  .x-draw{
+    font-family:var(--sans);font-weight:900;font-style:italic;
+    font-size:1.02em;line-height:1;display:inline-block;
+    background:var(--grad);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 10px rgba(217,70,239,.8),0 0 28px rgba(139,92,246,.7));
+    animation:xsurge .9s cubic-bezier(.22,1,.36,1) .3s both,xglow 3s ease-in-out 1.8s infinite;
+  }
+  @keyframes xsurge{
+    0%{opacity:0;transform:scale(.6) translateY(10px)}
+    100%{opacity:1;transform:scale(1) translateY(0)}
   }
   @keyframes xglow{
     0%,100%{filter:drop-shadow(0 0 8px rgba(217,70,239,.8),0 0 22px rgba(139,92,246,.6))}
-    50%{filter:drop-shadow(0 0 18px rgba(217,70,239,1),0 0 46px rgba(139,92,246,.95))}
+    50%{filter:drop-shadow(0 0 18px rgba(217,70,239,1),0 0 44px rgba(139,92,246,.95))}
   }
 
   .hero .slogan{
@@ -316,17 +319,7 @@
   <div class="meteor" style="--y:78%;--head:#FFB8F4;--dur:8s;--delay:3.4s"></div>
   <div class="hero-wrap">
     <div class="eyebrow">Inteligência · Segurança · Futuro</div>
-    <h1 class="hero-word">Sypher<svg class="x-draw" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="X">
-        <defs>
-          <linearGradient id="xgrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#7C3AED"/>
-            <stop offset="1" stop-color="#E879F9"/>
-          </linearGradient>
-        </defs>
-        <path class="arm1" d="M30 16 L45 16 L70 84 L55 84 Z"/>
-        <path class="arm2" d="M55 16 L70 16 L45 84 L30 84 Z"/>
-      </svg>
-    </h1>
+    <h1 class="hero-word">Sypher<span class="x-draw">X</span></h1>
     <p class="slogan">O <strong>código</strong> que decifra o <strong>futuro</strong>.<br>IA e segurança digital em estado puro.</p>
     <div class="sub">SOLUÇÕES TECNOLÓGICAS · INTELIGÊNCIA ARTIFICIAL</div>
     <div class="cta">
