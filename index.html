@@ -67,6 +67,28 @@
     align-items:center;justify-content:center;text-align:center;padding:140px 30px;
   }
   .hero .eyebrow{font-size:0.8rem;letter-spacing:6px;text-transform:uppercase;color:var(--violet-2);margin-bottom:28px;font-weight:600}
+  .hero-wrap{position:relative;display:flex;flex-direction:column;align-items:center;z-index:1}
+  /* anéis orbitais (fundo) */
+  .ring{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:430px;height:430px;border-radius:50%;
+    border:1px solid rgba(124,58,237,0.18);
+    animation:spin 30s linear infinite;z-index:0;pointer-events:none;
+  }
+  .ring:nth-child(2){width:330px;height:330px;border-color:rgba(217,70,239,0.22);animation:spin 20s linear infinite reverse}
+  .ring:nth-child(3){width:250px;height:250px;border-color:rgba(139,92,246,0.26);animation:spin 14s linear infinite}
+  .ring::after{
+    content:'';position:absolute;top:-6px;left:50%;
+    width:12px;height:12px;border-radius:50%;
+    background:var(--violet);box-shadow:0 0 20px var(--violet);
+    transform:translateX(-50%);
+  }
+  .ring:nth-child(2)::after{background:var(--magenta);box-shadow:0 0 20px var(--magenta)}
+  .ring:nth-child(3)::after{background:var(--violet-2);box-shadow:0 0 20px var(--violet-2)}
+  @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+  /* partículas ao fundo */
+  #particles{position:fixed;inset:0;z-index:0;pointer-events:none}
   .hero h1{
     font-size:clamp(3.4rem,13vw,8.5rem);
     font-weight:800;letter-spacing:-3px;line-height:1;color:var(--ink);
@@ -226,6 +248,7 @@
 <body>
 
 <div class="bg-art"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
+<canvas id="particles"></canvas>
 
 <!-- NAV -->
 <nav>
@@ -250,13 +273,18 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="eyebrow">Inteligência · Segurança · Futuro</div>
-  <h1>Sypher<span class="x">X</span></h1>
-  <p class="slogan">O <strong>código</strong> que decifra o <strong>futuro</strong>.<br>IA e segurança digital em estado puro.</p>
-  <div class="sub">SOLUÇÕES TECNOLÓGICAS · INTELIGÊNCIA ARTIFICIAL</div>
-  <div class="cta">
-    <a class="primary" href="#significado">Conhecer a marca</a>
-    <a class="ghost" href="#logos">Ver logos</a>
+  <div class="hero-wrap">
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="eyebrow">Inteligência · Segurança · Futuro</div>
+    <h1>Sypher<span class="x">X</span></h1>
+    <p class="slogan">O <strong>código</strong> que decifra o <strong>futuro</strong>.<br>IA e segurança digital em estado puro.</p>
+    <div class="sub">SOLUÇÕES TECNOLÓGICAS · INTELIGÊNCIA ARTIFICIAL</div>
+    <div class="cta">
+      <a class="primary" href="#significado">Conhecer a marca</a>
+      <a class="ghost" href="#logos">Ver logos</a>
+    </div>
   </div>
   <div class="scroll-hint">DESCUBRA</div>
 </section>
@@ -443,6 +471,42 @@
 <footer>Sypher X · Identidade da marca — minimalista futurista em violeta</footer>
 
 <script>
+  // ============ PARTÍCULAS FLUTUANTES (fundo) ============
+  (function(){
+    const canvas=document.getElementById('particles');
+    if(!canvas)return;
+    const ctx=canvas.getContext('2d');
+    let w,h,ps=[];
+    function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;init();}
+    window.addEventListener('resize',resize);
+    const cols=['124,58,237','217,70,239','139,92,246','203,181,253','255,255,255'];
+    function init(){
+      ps=[];
+      const n=Math.min(80,Math.floor(w*h/16000));
+      for(let i=0;i<n;i++)ps.push({
+        x:Math.random()*w,y:Math.random()*h,
+        r:Math.random()*2+0.6,
+        vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,
+        tw:Math.random()*Math.PI*2,tsp:Math.random()*0.02+0.005,
+        c:cols[Math.floor(Math.random()*cols.length)]
+      });
+    }
+    let t=0;
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      for(const p of ps){
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.x<0)p.x=w;if(p.x>w)p.x=0;
+        if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+        const o=0.25+0.55*Math.abs(Math.sin(t*p.tsp+p.tw));
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle='rgba('+p.c+','+o+')';ctx.fill();
+      }
+      t++;requestAnimationFrame(draw);
+    }
+    resize();draw();
+  })();
+
   // Animação do botão de áudio
   (function(){
     const a=document.getElementById('narrationAudio'),b=document.getElementById('audioBtn'),l=document.getElementById('audioLabel');
