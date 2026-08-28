@@ -120,14 +120,14 @@
 
   /* ======== X QUE SE DESENHA (estilo syphex) ======== */
   .hero-word{display:inline-flex;align-items:center;gap:2px;justify-content:center}
-  .x-draw{width:clamp(2.4rem,10.5vw,6.6rem);height:auto;display:block;overflow:visible;filter:drop-shadow(0 0 22px rgba(139,92,246,0.6))}
-  .x-draw path{fill:none;stroke:url(#xgrad);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900}
+  .x-draw{width:clamp(3rem,13vw,8rem);height:auto;display:block;overflow:visible;filter:drop-shadow(0 0 10px rgba(217,70,239,.9),0 0 30px rgba(139,92,246,.75));animation:xglow 3s ease-in-out 1.6s infinite}
+  .x-draw path{fill:none;stroke:url(#xgrad);stroke-width:17;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900}
   .hero.draw .x-draw path{animation:draw 1.6s cubic-bezier(.65,0,.35,1) forwards}
-  .x-draw path.join{animation:draw 1.6s cubic-bezier(.65,0,.35,1) .4s forwards,dash-glow 3s ease-in-out 2s infinite}
+  .x-draw path.join{animation:draw 1.6s cubic-bezier(.65,0,.35,1) .4s forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
-  @keyframes dash-glow{
-    0%,100%{opacity:1;stroke:#E879F9}
-    50%{opacity:.85;stroke:#8B5CF6}
+  @keyframes xglow{
+    0%,100%{filter:drop-shadow(0 0 8px rgba(217,70,239,.8),0 0 22px rgba(139,92,246,.6))}
+    50%{filter:drop-shadow(0 0 18px rgba(217,70,239,1),0 0 46px rgba(139,92,246,.95))}
   }
 
   .hero .slogan{
