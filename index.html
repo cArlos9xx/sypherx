@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sypher X — Cifras, Inteligência Artificial e Segurança Digital. O código que decifra o futuro.">
+<title>Sypher X — Ciber Identidade da Marca</title>
+<style>
+  /* ============ TEMA ============ */
+  :root{
+    --bg:#05060A;
+    --bg2:#0A0D17;
+    --panel:rgba(16,20,36,0.7);
+    --black:#000000;
+    /* Cor do momento: ciano/fosfo neon + acentos magenta - "cyberpunk cipher" */
+    --cyber:#22D8FF;      /* fosforo ciano */
+    --cyber-2:#00F0FF;
+    --magenta:#FF3CAC;
+    --violet:#7A5CFF;
+    --acid:#B4FF39;
+    --white:#EAF6FF;
+    --dim:#7E8FA6;
+    --grad:linear-gradient(120deg,#22D8FF,#7A5CFF);
+    --grad-2:linear-gradient(120deg,#FF3CAC,#7A5CFF);
+    --mono:'JetBrains Mono','Consolas','Courier New',monospace;
+    --sans2:'Segoe UI',Helvetica,Arial,sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans2);
+    background:var(--bg);
+    color:var(--white);
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+
+  ::selection{background:var(--cyber);color:#000}
+
+  /* ============ FUNDO ANIMADO ============ */
+  /* Chuva de hexadecimais estilo "cifra" */
+  #rain{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    z-index:0;pointer-events:none;opacity:.5;
+  }
+
+  /* Scanlines CRT */
+  .crt::before{
+    content:'';position:fixed;inset:0;z-index:5;pointer-events:none;
+    background:repeating-linear-gradient(to bottom,
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 3px);
+  }
+  /* vinheta */
+  .crt::after{
+    content:'';position:fixed;inset:0;z-index:4;pointer-events:none;
+    background:radial-gradient(circle at 50% 50%,transparent 55%,rgba(0,0,0,0.55) 100%);
+  }
+
+  /* grid tecnologico */
+  .grid{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(34,216,255,0.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(34,216,255,0.05) 1px,transparent 1px);
+    background-size:50px 50px;
+    transform:perspective(500px) rotateX(60deg);
+    transform-origin:center bottom;
+    animation:gridmove 12s linear infinite;
+  }
+  @keyframes gridmove{from{background-position-y:0}to{background-position-y:50px}}
+
+  /* ============ NAV ============ */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 36px;
+    background:rgba(5,6,10,0.8);backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(34,216,255,0.15);
+  }
+  .nav-brand{font-family:var(--mono);font-weight:700;letter-spacing:1px;font-size:1.05rem}
+  .nav-brand .x{color:var(--cyber)}
+  nav .links a{
+    color:var(--dim);text-decoration:none;margin-left:24px;
+    font-size:0.85rem;font-family:var(--mono);letter-spacing:0.5px;
+    position:relative;transition:color .2s;
+  }
+  nav .links a:hover{color:var(--cyber)}
+  nav .links a::after{
+    content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
+    background:var(--grad);transition:width .25s;
+  }
+  nav .links a:hover::after{width:100%}
+
+  section{position:relative;z-index:3;padding:100px 36px}
+  .inner{max-width:1120px;margin:0 auto}
+
+  .tag{
+    font-family:var(--mono);color:var(--cyber);font-size:0.75rem;
+    letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;
+  }
+  .tag::before{content:'// ';color:var(--magenta)}
+
+  h2{font-size:2.1rem;font-weight:800;margin-bottom:34px;letter-spacing:-0.5px}
+  h2 .x{color:var(--cyber)}
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;padding:120px 30px;
+    position:relative;
+  }
+  .hero h1{
+    font-family:var(--mono);
+    font-size:clamp(3.2rem,12vw,7.5rem);
+    font-weight:800;letter-spacing:-2px;position:relative;z-index:3;
+    text-shadow:0 0 18px rgba(34,216,255,0.4);
+  }
+  .hero h1 .x{
+    background:var(--grad);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;font-style:italic;
+    display:inline-block;animation:glitch 3.5s infinite;
+  }
+  @keyframes glitch{
+    0%,90%,100%{transform:translate(0);text-shadow:0 0 18px rgba(34,216,255,0.4)}
+    92%{transform:translate(-2px,1px) skewX(-2deg);text-shadow:3px 0 var(--magenta),-3px 0 var(--cyber)}
+    95%{transform:translate(2px,-1px) skewX(2deg);text-shadow:-3px 0 var(--violet),3px 0 var(--acid)}
+    97%{transform:translate(0)}
+  }
+
+  .type{  /* terminal digitando */
+    margin-top:26px;
+    font-family:var(--mono);font-size:1.1rem;color:var(--dim);
+    min-height:1.6rem;position:relative;z-index:3;
+  }
+  .type .cursor{display:inline-block;width:9px;height:1.1rem;background:var(--cyber);margin-left:2px;animation:blink 1s steps(1) infinite;vertical-align:-2px}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+  .hero .sub{margin-top:16px;font-family:var(--mono);font-size:0.85rem;color:#3a4a5e;letter-spacing:2px;position:relative;z-index:3}
+  .hero .sub .on{color:var(--acid)}
+
+  .cta{margin-top:40px;position:relative;z-index:3;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+  .cta a{
+    font-family:var(--mono);text-decoration:none;font-weight:700;font-size:0.9rem;
+    padding:14px 32px;border-radius:6px;letter-spacing:0.5px;transition:transform .2s,box-shadow .2s;
+  }
+  .cta .primary{background:var(--grad);color:#000;box-shadow:0 0 30px rgba(34,216,255,0.4)}
+  .cta .primary:hover{transform:translateY(-3px);box-shadow:0 0 46px rgba(34,216,255,0.6)}
+  .cta .ghost{border:1px solid rgba(34,216,255,0.5);color:var(--cyber)}
+  .cta .ghost:hover{background:rgba(34,216,255,0.1);transform:translateY(-3px)}
+
+  .scroll-hint{
+    position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+    font-family:var(--mono);color:#3a4a5e;font-size:0.75rem;letter-spacing:3px;
+    animation:pulse 2s infinite;z-index:3;
+  }
+  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+  /* ============ BLOCO COMPARTILHADO ============ */
+  .card{
+    background:var(--panel);border:1px solid rgba(34,216,255,0.12);
+    backdrop-filter:blur(8px);border-radius:14px;padding:26px;
+    transition:transform .2s,border-color .2s,box-shadow .2s;
+  }
+  .card:hover{transform:translateY(-5px);border-color:rgba(34,216,255,0.5);box-shadow:0 10px 40px rgba(34,216,255,0.08)}
+
+  .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+
+  /* ============ SIGNIFICADO ============ */
+  .meaning{max-width:860px}
+  .meaning p{color:var(--dim);margin-bottom:18px;font-size:1.02rem}
+  .meaning strong{color:var(--white)}
+  .meaning .hl{color:var(--cyber);font-weight:700}
+
+  .def-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:26px}
+  .def-box{background:var(--panel);border-radius:12px;border-left:3px solid var(--cyber);padding:18px 20px}
+  .def-box .k{font-family:var(--mono);font-size:0.7rem;color:var(--magenta);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+  .def-box .v{font-size:1.05rem;font-weight:700}
+
+  /* ============ QUIZ / IMPORTANCIA ============ */
+  .why{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .why .num{font-family:var(--mono);color:var(--cyber);font-size:0.75rem;letter-spacing:2px;margin-bottom:10px}
+  .why h3{font-size:1.15rem;margin-bottom:8px}
+  .why p{font-size:0.88rem;color:var(--dim)}
+
+  /* ============ LOGOS ============ */
+  .logos-table{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+  .logocard{
+    background:linear-gradient(160deg,#0c1020,#05060a);
+    border:1px solid rgba(34,216,255,0.14);
+    border-radius:16px;padding:38px 24px;text-align:center;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:220px;
+    transition:transform .25s,border-color .25s;
+    overflow:hidden;position:relative;
+  }
+  .logocard::before{ /* brilho de fundo */
+    content:'';position:absolute;top:-60%;right:-60%;width:120%;height:120%;
+    background:radial-gradient(circle,rgba(34,216,255,0.09),transparent 60%);
+    opacity:0;transition:opacity .3s;
+  }
+  .logocard:hover::before{opacity:1}
+  .logocard:hover{transform:translateY(-6px);border-color:rgba(34,216,255,0.5)}
+  .logocard .lbl{font-family:var(--mono);font-size:0.7rem;color:#4b5c73;letter-spacing:2px;text-transform:uppercase;margin-top:18px}
+
+  /* modelo 1 - pixel/terminal */
+  .lg1{font-family:var(--mono);font-size:1.7rem;font-weight:800;letter-spacing:-1px}
+  .lg1 .x{color:var(--cyber);text-shadow:0 0 14px var(--cyber)}
+  /* modelo 2 - geométrico/lapidado */
+  .lg2{font-family:'Orbitron',var(--sans2);font-size:1.7rem;font-weight:900;letter-spacing:2px}
+  .lg2 .x{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  /* modelo 3 - itálico/inclinado tech */
+  .lg3{font-family:'Exo 2',var(--sans2);font-size:1.9rem;font-weight:700;font-style:italic;letter-spacing:0.5px}
+  .lg3 .x{color:var(--magenta);text-shadow:2px 0 var(--cyber)}
+  /* modelo 4 - alto contraste cortado */
+  .lg4{font-family:var(--mono);font-size:1.5rem;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+  .lg4 .x{color:var(--acid)}
+  /* modelo 5 - icone com caixa */
+  .lg-icon{width:96px;height:96px;position:relative;display:flex;align-items:center;justify-content:center}
+  .lg-icon .box{position:absolute;inset:0;border:2px solid rgba(34,216,255,0.6);border-radius:12px;transform:rotate(45deg);animation:spinbox 8s linear infinite}
+  .lg-icon .box:nth-child(2){inset:-10px;border-color:rgba(255,60,172,0.5);animation-direction:reverse;animation-duration:11s}
+  .lg-icon .txt{font-family:var(--mono);font-size:2.2rem;font-weight:800;color:var(--white);position:relative;z-index:2}
+  @keyframes spinbox{to{transform:rotate(405deg)}}
+  /* modelo 6 - monograma x */
+  .lg-mono{font-family:var(--mono);font-size:3.6rem;font-weight:900;line-height:1;
+    background:var(--grad-2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    animation:flip 6s ease-in-out infinite;display:inline-block}
+  @keyframes flip{0%,50%,100%{transform:rotate(0)}25%{transform:rotateY(180deg)}75%{transform:rotateY(-180deg)}}
+
+  /* fonte base para as familias mostradas */
+  .font-badge{margin-top:10px;font-size:0.68rem;color:#5a6a80;font-family:var(--mono)}
+
+  /* ============ CORES ============ */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px}
+  .swatch{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08)}
+  .swatch .chip{height:92px}
+  .swatch .info{background:#0c1020;padding:12px 14px}
+  .swatch .info .n{font-size:0.85rem;font-weight:600}
+  .swatch .info .c{font-size:0.72rem;color:#5a6a80;font-family:var(--mono)}
+  .gradbar{grid-column:1/-1;height:64px;border-radius:12px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;letter-spacing:2px;color:#000;border:1px solid rgba(255,255,255,0.1)}
+  .gradbar2{grid-column:1/-1;height:64px;border-radius:12px;background:var(--grad-2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;letter-spacing:2px;color:#000;border:1px solid rgba(255,255,255,0.1)}
+
+  /* ============ TIPOGRAFIA ============ */
+  .type-row{display:flex;flex-direction:column;gap:16px}
+  .type-item{background:var(--panel);border:1px solid rgba(34,216,255,0.1);border-radius:12px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .type-item .sample{font-size:1.6rem}
+  .type-item .meta{font-size:0.72rem;color:#5a6a80;font-family:var(--mono)}
+
+  /* ============ SLOGANS ============ */
+  .slog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+  .slog{padding:26px;position:relative;overflow:hidden}
+  .slog .n{font-family:var(--mono);font-size:0.75rem;color:var(--cyber);letter-spacing:2px;margin-bottom:12px}
+  .slog .q{font-size:1.15rem;font-weight:700;margin-bottom:8px;font-family:var(--mono)}
+  .slog .d{font-size:0.85rem;color:var(--dim)}
+  .slog::after{content:'';position:absolute;left:0;top:0;width:3px;height:0;background:var(--grad);transition:height .3s}
+  .slog:hover::after{height:100%}
+
+  /* ============ VALORES ============ */
+  .vals{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .val{text-align:center;padding:32px 22px}
+  .val .ic{font-size:2.6rem;margin-bottom:14px;display:inline-block}
+  .val h3{font-size:1.1rem;margin-bottom:8px}
+  .val p{font-size:0.86rem;color:var(--dim)}
+  .val .ic:hover{animation:floaty 0.6s ease}
+
+  /* ============ APLICACOES ============ */
+  .app-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+  .buscard{background:var(--bg2);border-radius:14px;border:1px solid rgba(34,216,255,0.15);padding:26px;display:flex;flex-direction:column;gap:6px}
+  .buscard .bx{font-size:2.4rem;font-weight:900;font-style:italic;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;font-family:var(--mono)}
+  .buscard .nm{font-weight:700;margin-top:12px}
+  .buscard .cg{font-size:0.8rem;color:var(--dim)}
+  .buscard .ct{font-size:0.72rem;color:#4b5c73;margin-top:12px;font-family:var(--mono)}
+
+  /* chip codigo hexadecimal */
+  .hexchip{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+  .hex{font-family:var(--mono);color:var(--cyber);background:rgba(34,216,255,0.08);border:1px solid rgba(34,216,255,0.2);padding:6px 12px;border-radius:6px;font-size:0.8rem}
+  .hex:nth-child(even){color:var(--magenta);border-color:rgba(255,60,172,0.25);background:rgba(255,60,172,0.07)}
+  .hex:nth-child(3n){color:var(--acid);border-color:rgba(180,255,57,0.25);background:rgba(180,255,57,0.06)}
+
+  /* terminal bloco */
+  .term{background:#05060a;border:1px solid rgba(34,216,255,0.18);border-radius:10px;overflow:hidden;grid-column:1/-1;box-shadow:0 10px 40px rgba(0,0,0,0.5)}
+  .term .bar{display:flex;gap:6px;padding:10px 14px;background:#0c1020;border-bottom:1px solid rgba(34,216,255,0.1)}
+  .term .dot{width:10px;height:10px;border-radius:50%}
+  .term .dot.r{background:#FF5F56}.term .dot.y{background:#FFBD2E}.term .dot.g{background:#27C93F}
+  .term .code{padding:16px;font-family:var(--mono);font-size:0.85rem;line-height:1.9;color:#b7c6d9}
+  .term .code .c1{color:var(--cyber)}
+  .term .code .c2{color:var(--magenta)}
+  .term .code .c3{color:var(--acid)}
+  .term .code .c4{color:#8b9bb0}
+
+  .raz{display:flex;flex-direction:column;gap:14px}
+  .raz .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:1px solid rgba(34,216,255,0.12);padding-bottom:14px}
+  .raz .row .k{color:var(--dim);font-size:0.85rem}
+  .raz .row .v{font-weight:600;text-align:right;font-family:var(--mono)}
+
+  .final{text-align:center;background:linear-gradient(160deg,#0c1020,transparent);border-radius:20px;padding:64px 30px;border:1px solid rgba(34,216,255,0.15)}
+  .final h3{font-size:2.2rem;margin-bottom:16px;font-family:var(--mono)}
+  .final p{color:var(--dim);max-width:540px;margin:0 auto 28px}
+
+  footer{position:relative;z-index:3;text-align:center;padding:36px;border-top:1px solid rgba(34,216,255,0.12);color:#4b5c73;font-size:0.78rem;font-family:var(--mono)}
+
+  .audio-btn{position:fixed;bottom:24px;right:24px;z-index:60;display:flex;align-items:center;gap:10px;padding:13px 22px 13px 18px;border-radius:8px;border:1px solid rgba(34,216,255,0.5);background:rgba(5,6,10,0.9);backdrop-filter:blur(8px);color:var(--white);font-size:0.9rem;font-weight:600;cursor:pointer;font-family:var(--mono);box-shadow:0 8px 30px rgba(0,0,0,0.6),0 0 25px rgba(34,216,255,0.2);transition:transform .2s,box-shadow .2s}
+  .audio-btn:hover{transform:translateY(-3px);box-shadow:0 12px 34px rgba(0,0,0,0.7),0 0 40px rgba(34,216,255,0.4)}
+  .audio-btn .snd{width:30px;height:30px;border-radius:6px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:#000}
+  .audio-btn .bars{display:flex;align-items:flex-end;gap:3px;height:16px}
+  .audio-btn .bars i{width:3px;border-radius:2px;background:var(--cyber);height:5px}
+  .audio-btn.playing .bars i{animation:eq .9s infinite ease-in-out}
+  .audio-btn.playing .bars i:nth-child(2){animation-delay:.15s}
+  .audio-btn.playing .bars i:nth-child(3){animation-delay:.3s}
+  .audio-btn.playing .bars i:nth-child(4){animation-delay:.45s}
+  @keyframes eq{0%,100%{height:5px}50%{height:14px}}
+
+  @media(max-width:640px){
+    section{padding:64px 20px}
+    nav{padding:14px 18px}
+    nav .links a{margin-left:12px;font-size:0.72rem}
+    .hero h1{font-size:3rem}
+  }
+</style>
+</head>
+<body class="crt">
+
+<canvas id="rain"></canvas>
+<div class="grid"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Sypher<span class="x">X</span>_</div>
+  <div class="links">
+    <a href="#significado">Significado</a>
+    <a href="#importancia">Importância</a>
+    <a href="#logos">Logos</a>
+    <a href="#cores">Cores</a>
+    <a href="#tipografia">Fontes</a>
+    <a href="#slogans">Slogans</a>
+    <a href="#valores">Valores</a>
+  </div>
+</nav>
+
+<!-- AUDIO -->
+<audio id="narrationAudio" preload="none"><source src="narracao.mp3" type="audio/mpeg"></audio>
+<button class="audio-btn" id="audioBtn" aria-label="Ouvir apresentação">
+  <span class="snd">▶</span><span class="bars"><i></i><i></i><i></i><i></i></span>
+  <span id="audioLabel">Ouvir apresentação</span>
+</button>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Sypher<span class="x">X</span></h1>
+  <div class="type" id="type"></div>
+  <div class="sub">CIPHER <span class="on">❯</span> SECURITY <span class="on">❯</span> INTELLIGENCE <span class="on">❯</span> FUTURE</div>
+  <div class="cta">
+    <a class="primary" href="#significado">Decifrar a marca</a>
+    <a class="ghost" href="#logos">Ver logos</a>
+  </div>
+  <div class="scroll-hint">SCROLL ❯</div>
+</section>
+
+<!-- SIGNIFICADO -->
+<section id="significado">
+  <div class="inner">
+    <div class="tag">Significado</div>
+    <h2>O que é <span class="x">Sypher X</span></h2>
+    <div class="meaning">
+      <p>
+        <strong>Sypher</strong> é a forma moderna de <strong class="hl">cipher</strong> (do árabe <em>sifr</em>),
+        a palavra que origina <strong class="hl">"cifra"</strong>. Uma cifra é o
+        <strong>algoritmo que transforma informação inteligível em código</strong> — a espinha dorsal da
+        criptografia, da segurança digital e de toda a comunicação criptografada do mundo.
+      </p>
+      <p>
+        Da máquina <strong>Enigma</strong> que mudou o rumo da Segunda Guerra, às chaves que protegem cada
+        transação e mensagem sua hoje, a cifra é <strong>o segredo por trás de toda informação confiável</strong>.
+        Sem cifra, não existe privacidade, não existe confiança, não existe futuro digital.
+      </p>
+      <p>
+        O <span class="hl">X</span> é a variável definitiva — a evolução, o avanço sem limite.
+        <strong>Sypher X</strong> é a síntese: <strong>o código que decifra o futuro</strong>.
+      </p>
+    </div>
+    <div class="def-row">
+      <div class="def-box"><div class="k">Etimologia</div><div class="v">Do árabe <em>sifr</em> → cifra → cipher</div></div>
+      <div class="def-box"><div class="k">Significado</div><div class="v">Algoritmo que codifica e decodifica</div></div>
+      <div class="def-box"><div class="k">História</div><div class="v">Da Enigma à criptografia moderna</div></div>
+      <div class="def-box"><div class="k">Aplicação</div><div class="v">Segurança, dados, IA e confiança</div></div>
+      <div class="def-box"><div class="k">O X</div><div class="v">A evolução definitiva da inteligência</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPORTANCIA -->
+<section id="importancia">
+  <div class="inner">
+    <div class="tag">Por que Sypher X</div>
+    <h2>A importância de ser <span class="x">um Sypher X</span></h2>
+    <div class="why">
+      <div class="card"><div class="num">01 // SEGURANÇA</div><h3>Confiança inquebrantável</h3><p>Toda transação, dado e conversa protegida por cifras de engenharia avançada. Sem brechas, sem riscos.</p></div>
+      <div class="card"><div class="num">02 // INTELIGÊNCIA</div><h3>IA que decodifica</h3><p>Algoritmos que transformam dados confusos em decisões cristalinas — a informação vira poder.</p></div>
+      <div class="card"><div class="num">03 // EVOLUÇÃO</div><h3>O X do avanço</h3><p>Não acompanhamos a tecnologia — criamos a próxima camada de código que define o futuro.</p></div>
+      <div class="card"><div class="num">04 // PROPÓSITO</div><h3>Ler o ilegível</h3><p>Resolvemos o que ninguém consegue decifrar: o problema complexo que trava o seu negócio.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<section id="logos">
+  <div class="inner">
+    <div class="tag">Identidade Visual</div>
+    <h2>Variações do <span class="x">Logo</span></h2>
+    <div class="logos-table">
+      <div class="logocard">
+        <div class="lg1">Sypher<span class="x">X</span></div>
+        <div class="font-badge">Monospace · Linear</div>
+        <div class="lbl">Estilo Terminal</div>
+      </div>
+      <div class="logocard">
+        <div class="lg2">Sypher<span class="x">X</span></div>
+        <div class="font-badge">Orbitron · Bold</div>
+        <div class="lbl">Geométrico Futuro</div>
+      </div>
+      <div class="logocard">
+        <div class="lg3">Sypher<span class="x">X</span></div>
+        <div class="font-badge">Exo 2 · Italic</div>
+        <div class="lbl">Tech Inclinado</div>
+      </div>
+      <div class="logocard">
+        <div class="lg4">Sypher<span class="x">X</span></div>
+        <div class="font-badge">Mono · Extended</div>
+        <div class="lbl">Alto Contraste</div>
+      </div>
+      <div class="logocard">
+        <div class="lg-icon">
+          <div class="box"></div><div class="box"></div>
+          <div class="txt">X</div>
+        </div>
+        <div class="font-badge">Símbolo / Emblema</div>
+        <div class="lbl">Ícone Rotativo</div>
+      </div>
+      <div class="logocard">
+        <div class="lg-mono">X</div>
+        <div class="font-badge">Monograma</div>
+        <div class="lbl">Marca d'água 3D</div>
+      </div>
+      <div class="logocard">
+        <div class="lg1" style="font-size:1.3rem;letter-spacing:0"><span class="x">[</span>Sypher<span class="x">X</span><span class="x">]</span></div>
+        <div class="font-badge">Sintaxe de Código</div>
+        <div class="lbl">Logo-Console</div>
+      </div>
+      <div class="logocard">
+        <div class="lg2" style="font-size:1.4rem;letter-spacing:4px">SY<span class="x">X</span></div>
+        <div class="font-badge">Abreviatura</div>
+        <div class="lbl">Compacto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORES -->
+<section id="cores">
+  <div class="inner">
+    <div class="tag">Paleta Visual</div>
+    <h2>Cores do <span class="x">Ciber-Espaço</span></h2>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:#05060A"></div><div class="info"><div class="n">Void</div><div class="c">#05060A</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#22D8FF"></div><div class="info"><div class="n">Cipher Cyan</div><div class="c">#22D8FF</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#7A5CFF"></div><div class="info"><div class="n">Neon Violet</div><div class="c">#7A5CFF</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#FF3CAC"></div><div class="info"><div class="n">Encrypt Magenta</div><div class="c">#FF3CAC</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#B4FF39"></div><div class="info"><div class="n">Decode Acid</div><div class="c">#B4FF39</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#EAF6FF"></div><div class="info"><div class="n">Signal White</div><div class="c">#EAF6FF</div></div></div>
+      <div class="gradbar">CIFRA PRINCIPAL — #22D8FF → #7A5CFF</div>
+      <div class="gradbar2">ACESSO DE SEGURANÇA — #FF3CAC → #7A5CFF</div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPOGRAFIA -->
+<section id="tipografia">
+  <div class="inner">
+    <div class="tag">Tipografia</div>
+    <h2>Fontes da <span class="x">Cifra</span></h2>
+    <div class="type-row">
+      <div class="type-item"><div class="sample" style="font-family:'JetBrains Mono',monospace;font-weight:700">SypherX_01 // code.exe</div><div class="meta">JetBrains Mono — terminal, código</div></div>
+      <div class="type-item"><div class="sample" style="font-family:'Orbitron',sans-serif;font-weight:900;letter-spacing:2px">Sypher X</div><div class="meta">Orbitron — nome da marca</div></div>
+      <div class="type-item"><div class="sample" style="font-family:'Exo 2',sans-serif;font-weight:700">Inteligência que decifra.</div><div class="meta">Exo 2 / Inter — corpo de texto</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLOGANS -->
+<section id="slogans">
+  <div class="inner">
+    <div class="tag">Posicionamento</div>
+    <h2>Slogans</h2>
+    <div class="slog-grid">
+      <div class="card slog"><div class="n">01</div><div class="q">// o código que decifra o futuro</div><div class="d">IA e tecnologia que convertem complexidade em clareza.</div></div>
+      <div class="card slog"><div class="n">02</div><div class="q">// cifra sua proteção. decodifica seu sucesso</div><div class="d">Segurança total + resultado estratégico.</div></div>
+      <div class="card slog"><div class="n">03</div><div class="q">// nada é ilegível para Sypher X</div><div class="d">Resolvemos o problema que ninguém decifra.</div></div>
+      <div class="card slog"><div class="n">04</div><div class="q">// a variável que muda tudo</div><div class="d">O X que transforma dados em decisão.</div></div>
+      <div class="card slog"><div class="n">05</div><div class="q">// confiança encriptada. futuro decodificado</div><div class="d">A base de toda relação digital de alto nível.</div></div>
+      <div class="card slog"><div class="n">06</div><div class="q">// raiz do segredo. ápice do avanço</div><div class="d">Do árabe sifr à inteligência de amanhã.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALORES -->
+<section id="valores">
+  <div class="inner">
+    <div class="tag">Fundamentos</div>
+    <h2>Valores da <span class="x">Marca</span></h2>
+    <div class="vals">
+      <div class="card val"><div class="ic">⧉</div><h3>Segurança Radical</h3><p>Proteção absoluta — cada dado é uma chave que só nós destrancamos.</p></div>
+      <div class="card val"><div class="ic">⌬</div><h3>Inteligência Viva</h3><p>IA que aprende, adapta e decodifica o que outros não veem.</p></div>
+      <div class="card val"><div class="ic">⚡</div><h3>Velocidade de Chip</h3><p>Precisão e performance no nível do silício.</p></div>
+      <div class="card val"><div class="ic">◉</div><h3>Código Aberto p/ o Futuro</h3><p>Transparência interna, inovação constante, olhar adiante.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- APLICACOES -->
+<section id="aplicacoes">
+  <div class="inner">
+    <div class="tag">Uso</div>
+    <h2>Aplicações da <span class="x">Marca</span></h2>
+    <div class="app-grid">
+      <div class="buscard">
+        <div class="bx">X</div>
+        <div class="nm">JOÃO DA SILVA</div>
+        <div class="cg">CEO · Sypher X</div>
+        <div class="ct">+55 00 0000-0000<br>contato@sypherx.com.br</div>
+      </div>
+      <div class="buscard">
+        <div class="bx">X</div>
+        <div class="nm">SYPHER X</div>
+        <div class="cg">Criptografia · IA · Segurança Digital</div>
+        <div class="ct">// assinatura institucional</div>
+      </div>
+      <div class="term">
+        <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+        <div class="code">
+          <span class="c4">// sypherx-core.cy</span><br>
+          <span class="c3">$</span> init --cipher aes-256 --engine quantum<br>
+          <span class="c1">root@future:</span><span class="c4">~</span><span class="c2">#</span> deploy intelligence.module<br>
+          <span class="c1">&gt;&gt;</span> <span class="c4">decoding</span> <span class="c3">[██████████]</span> <span class="c4">100%</span><br>
+          <span class="c1">&gt;&gt;</span> <span class="c4">result:</span> <span class="c3">SUCCESS — Sypher X</span>
+        </div>
+      </div>
+      <div class="theme-chip card" style="grid-column:1/-1;text-align:center">
+        <div class="t" style="font-family:var(--mono);font-size:0.8rem;color:var(--dim);margin-bottom:10px">// CHAVE DE IDENTIDADE HEXADECIMAL</div>
+        <div class="hexchip">
+          <span class="hex">0x22</span><span class="hex">0xD8</span><span class="hex">0xFF</span>
+          <span class="hex">0x7A</span><span class="hex">0x5C</span><span class="hex">0xFF</span>
+          <span class="hex">0xFF</span><span class="hex">0x3C</span><span class="hex">0xAC</span>
+          <span class="hex">0xB4</span><span class="hex">0xFF</span><span class="hex">0x39</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RAZAO -->
+<section id="razao">
+  <div class="inner">
+    <div class="tag">Formal</div>
+    <h2>Razão Social &amp; Dados</h2>
+    <div class="raz">
+      <div class="row"><span class="k">Nome fantasia</span><span class="v">Sypher X</span></div>
+      <div class="row"><span class="k">Sigla / Selo</span><span class="v">SYPX / SX</span></div>
+      <div class="row"><span class="k">Razão social</span><span class="v">Sypher X Inteligência Artificial e Segurança Digital Ltda</span></div>
+      <div class="row"><span class="k">Versão compacta do nome</span><span class="v">SypherX ❯ SYPX ❯ SX</span></div>
+      <div class="row"><span class="k">Domínio sugerido</span><span class="v">sypherx.com.br / sypher.com.br</span></div>
+      <div class="row"><span class="k">Áreas</span><span class="v">Criptografia · Inteligência Artificial · Segurança Digital · IA</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section>
+  <div class="inner">
+    <div class="final">
+      <h3 class="grad-text" style="background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">// Nada é ilegível para Sypher X.</h3>
+      <p>Em desenvolvimento — este é o ponto de partida de uma identidade cibernética que decifra o futuro.</p>
+      <a href="#top" style="display:inline-block;padding:14px 34px;border-radius:6px;background:var(--grad);color:#000;text-decoration:none;font-weight:700;font-family:var(--mono)">Voltar ao topo</a>
+    </div>
+  </div>
+</section>
+
+<footer>Sypher X · Ciber-identidade da marca — criptografia · IA · futuro</footer>
+
+<script>
+  // ============ CHUVA DE HEXADECIMAIS (cifra) ============
+  const canvas=document.getElementById('rain');
+  const ctx=canvas.getContext('2d');
+  let W,H,cols,drops,size=16;
+  const symbols='0123456789ABCDEF<>#$%&@';
+  function resize(){
+    W=canvas.width=innerWidth;H=canvas.height=innerHeight;
+    cols=Math.floor(W/size);
+    drops=Array(cols).fill(1);
+  }
+  resize();addEventListener('resize',resize);
+  function drawRain(){
+    ctx.fillStyle='rgba(5,6,10,0.05)';ctx.fillRect(0,0,W,H);
+    ctx.font=size+'px monospace';
+    for(let i=0;i<cols;i++){
+      const ch=symbols[Math.floor(Math.random()*symbols.length)];
+      ctx.fillStyle=Math.random()>0.98?'#22D8FF':Math.random()>0.5?'#0e2a3a':'#07f5ff';
+      ctx.fillText(ch,i*size,drops[i]*size);
+      if(drops[i]*size>H&&Math.random()>0.975)drops[i]=0;
+      drops[i]++;
+    }
+    requestAnimationFrame(drawRain);
+  }
+  drawRain();
+
+  // ============ TERMINAL DIGITANDO ============
+  const typeEl=document.getElementById('type');
+  const phrases=[
+    '// o codigo que decifra o futuro',
+    '// cifra sua protecao. decodifica seu sucesso',
+    '// nada e ilegivel para Sypher X',
+    '// decrypting future... [OK]'
+  ];
+  let pi=0,ci=0,deleting=false;
+  function type(){
+    const cur=phrases[pi];
+    typeEl.innerHTML='<span style="color:#7FE7ff">'+cur.slice(0,ci)+'</span><span class="cursor"></span>';
+    if(!deleting&&ci<cur.length){ci++;setTimeout(type,34)}
+    else if(!deleting&&ci===cur.length){deleting=true;setTimeout(type,1800)}
+    else if(deleting&&ci>0){ci--;setTimeout(type,18)}
+    else{deleting=false;pi=(pi+1)%phrases.length;setTimeout(type,300)}
+  }
+  type();
+
+  // ============ AUDIO ============
+  (function(){
+    const a=document.getElementById('narrationAudio'),b=document.getElementById('audioBtn'),l=document.getElementById('audioLabel');
+    if(!a||!b)return;let pl=false;
+    function sp(s){pl=s;b.classList.toggle('playing',s);b.querySelector('.snd').textContent=s?'⏸':'▶';l.textContent=s?'Ouvindo apresentação':'Ouvir apresentação';}
+    b.addEventListener('click',function(){pl?(a.pause(),sp(false)):a.play().then(function(){sp(true)}).catch(function(){});});
+    a.addEventListener('ended',function(){sp(false)});
+    a.addEventListener('pause',function(){sp(false)});
+    a.addEventListener('play',function(){sp(true)});
+    let st=false;function ta(){if(st)return;st=true;if(!pl)a.play().then(function(){sp(true)}).catch(function(){});}
+    document.addEventListener('click',ta,{once:true});document.addEventListener('touchstart',ta,{once:true});
+  })();
+</script>
+
+</body>
+</html>
