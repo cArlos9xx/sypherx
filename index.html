@@ -118,13 +118,17 @@
   }
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-  /* ======== X QUE SE DESENHA (estilo syphex) ======== */
+  /* ======== X QUE SE DESENHA + IMPACTO (fitas largas) ======== */
   .hero-word{display:inline-flex;align-items:center;gap:2px;justify-content:center}
-  .x-draw{width:clamp(3rem,13vw,8rem);height:auto;display:block;overflow:visible;filter:drop-shadow(0 0 10px rgba(217,70,239,.9),0 0 30px rgba(139,92,246,.75));animation:xglow 3s ease-in-out 1.6s infinite}
-  .x-draw path{fill:none;stroke:url(#xgrad);stroke-width:17;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900}
-  .hero.draw .x-draw path{animation:draw 1.6s cubic-bezier(.65,0,.35,1) forwards}
-  .x-draw path.join{animation:draw 1.6s cubic-bezier(.65,0,.35,1) .4s forwards}
-  @keyframes draw{to{stroke-dashoffset:0}}
+  .x-draw{width:clamp(3.2rem,14vw,8.6rem);height:auto;display:block;overflow:visible;filter:drop-shadow(0 0 10px rgba(217,70,239,.9),0 0 30px rgba(139,92,246,.75));animation:xglow 3s ease-in-out 1.6s infinite}
+  .x-draw path{fill:url(#xgrad);fill-opacity:.25;stroke:#F3EEFF;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900;opacity:0}
+  .hero.draw .x-draw path{animation:xdraw 1.8s cubic-bezier(.65,0,.35,1) .2s forwards}
+  .x-draw path.arm2{animation:xdraw 1.8s cubic-bezier(.65,0,.35,1) .6s forwards}
+  @keyframes xdraw{
+    0%{opacity:0;stroke-dashoffset:900}
+    55%{opacity:1}
+    100%{opacity:1;stroke-dashoffset:0}
+  }
   @keyframes xglow{
     0%,100%{filter:drop-shadow(0 0 8px rgba(217,70,239,.8),0 0 22px rgba(139,92,246,.6))}
     50%{filter:drop-shadow(0 0 18px rgba(217,70,239,1),0 0 46px rgba(139,92,246,.95))}
@@ -319,8 +323,8 @@
             <stop offset="1" stop-color="#E879F9"/>
           </linearGradient>
         </defs>
-        <path d="M24 22 L76 78"/>
-        <path class="join" d="M76 22 L24 78"/>
+        <path class="arm1" d="M30 16 L45 16 L70 84 L55 84 Z"/>
+        <path class="arm2" d="M55 16 L70 16 L45 84 L30 84 Z"/>
       </svg>
     </h1>
     <p class="slogan">O <strong>código</strong> que decifra o <strong>futuro</strong>.<br>IA e segurança digital em estado puro.</p>
