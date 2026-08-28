@@ -103,15 +103,6 @@
 
   /* ======== X QUE SE DESENHA (estilo syphex) ======== */
   .hero-word{display:inline-flex;align-items:baseline;gap:2px;justify-content:center}
-  /* S grande/monograma destacado */
-  .big-s{
-    font-size:1.35em;line-height:1;font-weight:900;letter-spacing:-6px;
-    background:var(--grad);
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-    transform:translateY(0.04em);
-    filter:drop-shadow(0 0 18px rgba(139,92,246,0.5));
-    animation:float 6s ease-in-out infinite;
-  }
   .x-draw{width:clamp(2.6rem,11vw,7rem);height:auto;display:block;overflow:visible;filter:drop-shadow(0 0 26px rgba(217,70,239,0.7));transform:translateY(0.12em)}
   .x-draw path{fill:none;stroke:url(#xgrad);stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400}
   .hero.draw .x-draw path{animation:draw 1.9s cubic-bezier(.6,0,.2,1) .3s forwards}
@@ -307,7 +298,7 @@
     <div class="ring"></div>
     <div class="ring"></div>
     <div class="eyebrow">Inteligência · Segurança · Futuro</div>
-    <h1 class="hero-word"><span class="big-s">S</span>ypher<svg class="x-draw" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="X">
+    <h1 class="hero-word">Sypher<svg class="x-draw" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="X">
         <defs>
           <linearGradient id="xgrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
             <stop stop-color="#7C3AED"/>
