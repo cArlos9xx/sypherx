@@ -64,37 +64,38 @@
 
   /* ======== HERO ======== */
   .hero{
-    min-height:100vh;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;text-align:center;padding:140px 30px;
+    position:relative;min-height:100vh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;padding:140px 30px;overflow:hidden;
   }
   .hero .eyebrow{font-size:0.8rem;letter-spacing:6px;text-transform:uppercase;color:var(--violet-2);margin-bottom:28px;font-weight:600}
   .hero-wrap{position:relative;display:flex;flex-direction:column;align-items:center;z-index:1}
-  /* órbita com estrelas cadentes (fundo) */
-  .ring{
-    position:absolute;top:50%;left:50%;
-    transform:translate(-50%,-50%);
-    width:430px;height:430px;border-radius:50%;
-    border:1px solid rgba(124,58,237,0.13);
-    animation:spin 8s linear infinite;z-index:0;pointer-events:none;
-    --tail:160px;--head:#fff;--glow:#C4B5FD;
-  }
-  .ring:nth-child(2){width:330px;height:330px;border-color:rgba(217,70,239,0.15);animation:spin 6s linear infinite reverse;--tail:120px;--head:#FFE3FB;--glow:#FFB8F4}
-  .ring:nth-child(3){width:250px;height:250px;border-color:rgba(139,92,246,0.16);animation:spin 4.5s linear infinite;--tail:90px;--head:#EDE4FF;--glow:#D8C8FF}
-  /* cabeça brilhante da estrela */
-  .ring::before{
-    content:'';position:absolute;top:-7px;left:50%;
-    width:13px;height:13px;border-radius:50%;
-    background:var(--head);transform:translateX(-50%);
-    box-shadow:0 0 12px var(--glow),0 0 38px var(--head);
-  }
-  /* cauda do cometa (rastro atrás, no sentido da órbita) */
-  .ring::after{
-    content:'';position:absolute;top:-6px;left:50%;
-    height:3px;width:var(--tail);border-radius:999px;
+  /* estrelas cadentes atravessando de lado a lado (fundo) */
+  .meteor{
+    position:absolute;left:0;top:var(--y);
+    width:110px;height:3px;border-radius:999px;
     background:linear-gradient(90deg,var(--head),rgba(196,181,253,0));
-    box-shadow:0 0 12px rgba(139,92,246,0.8);
+    box-shadow:0 0 14px rgba(139,92,246,0.9);
+    z-index:0;pointer-events:none;opacity:0;
   }
-  @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+  .meteor::before{
+    content:'';position:absolute;left:-3px;top:50%;transform:translateY(-50%);
+    width:9px;height:9px;border-radius:50%;background:var(--head);
+    box-shadow:0 0 10px var(--head),0 0 28px var(--head);
+  }
+  .meteor{animation:shoot var(--dur) linear var(--delay) infinite}
+  .meteor.rv{animation:shoot-r var(--dur) linear var(--delay) infinite}
+  @keyframes shoot{
+    0%{transform:translateX(-30vw);opacity:0}
+    4%{opacity:1}
+    90%{opacity:1}
+    100%{transform:translateX(122vw);opacity:0}
+  }
+  @keyframes shoot-r{
+    0%{transform:translateX(122vw);opacity:0}
+    4%{opacity:1}
+    90%{opacity:1}
+    100%{transform:translateX(-30vw);opacity:0}
+  }
   /* partículas ao fundo */
   #particles{position:fixed;inset:0;z-index:0;pointer-events:none}
   .hero h1{
@@ -294,10 +295,13 @@
 
 <!-- HERO -->
 <section class="hero draw">
+  <div class="meteor" style="--y:24%;--head:#fff;--dur:5.5s;--delay:0s"></div>
+  <div class="meteor" style="--y:34%;--head:#FFE3FB;--dur:6.5s;--delay:1.2s"></div>
+  <div class="meteor rv" style="--y:44%;--head:#EDE4FF;--dur:7s;--delay:.4s"></div>
+  <div class="meteor" style="--y:55%;--head:#E879F9;--dur:6s;--delay:2.2s"></div>
+  <div class="meteor rv" style="--y:66%;--head:#C4B5FD;--dur:5s;--delay:1.5s"></div>
+  <div class="meteor" style="--y:78%;--head:#FFB8F4;--dur:8s;--delay:3.4s"></div>
   <div class="hero-wrap">
-    <div class="ring"></div>
-    <div class="ring"></div>
-    <div class="ring"></div>
     <div class="eyebrow">Inteligência · Segurança · Futuro</div>
     <h1 class="hero-word">Sypher<svg class="x-draw" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="X">
         <defs>
